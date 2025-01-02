@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- The title-->
+    <title>Search for videos</title>
+    <!-- Link to the external CSS stylesheet-->
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+
+<!-- Navigation bar with links to different sections of the website -->
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/register">Register</a>
+        <a href="/login">Sign in</a>
+        <a href="/account">Account</a>
+        <a href="/list">Video Section</a>
+        <a href="/search">Search</a>
+        <a href="/contact">Contact</a>
+    </nav>
+
+     <!-- Search Form -->
+    <form action="/search" method="get">
+        <input type="text" name="search_text" placeholder="Search for videos" required>
+        <button type="submit">Search</button>
+    </form>
+    
+    <h1>Search Results for "<%= searchText %>"</h1>
+    <% if (videos.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Video Title</th>
+                    <th>Price (GBP)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% videos.forEach(video => { %>
+                    <tr>
+                        <td><%= video.video_title %></td>
+                        <td>
+                            <% 
+                                const conversionRate = 0.74; // 1 USD to GBP
+                                const priceInGBP = parseFloat(video.video_price) * conversionRate;
+                            %>
+                            £<%= priceInGBP.toFixed(2) %>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No videos found matching your search.</p>
+    <% } %>
+    
+    <h2>List of video titles in the database.</h2>
+    <div class="database">
+    <p>Affiliate Program Tutorial</p>
+     <p>Make money with no skill required</p>
+     <p>Make money online</p>
+     <p>Print on demand</p>
+     <p>Make YouTube Thumbnails</p>
+     <p>Make money on Upwork</p>
+     <p>Re-upload YouTube videos</p>
+     <p>Websites to earn money</p>
+    </div>
+    <!-- Footer section with copyright information and additional navigation links -->
+    <footer>
+        <p>&copy; <%= new Date().getFullYear() %> Alvey eLearning Platform. All rights reserved.</p>
+        <nav>
+            <a href="/about">About</a>
+            <a href="/register">Join</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

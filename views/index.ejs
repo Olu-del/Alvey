@@ -1,0 +1,62 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- The title of the webpage -->
+     <title><%=appName%></title>
+     <!-- Link to the external CSS stylesheet -->
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+  </head>
+  <body>  
+
+    <!-- Navigation bar with links to different sections of the website -->
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/register">Register</a>
+        <a href="/login">Sign In</a>
+        <a href="/account">Account</a>
+        <a href="/list">Video Section</a>
+        <a href="/search">Search</a>
+        <a href="/contact">Contact</a>
+       
+    </nav> 
+
+    <!-- Main heading of the webpage-->
+     <h1>Welcome to <%=appName%> An E-learning Website</h1>
+  
+    <!-- Subheading of the webpage -->
+     <h2>Your gateway to knowledge and growth.</h2> 
+    
+     <div class="video-page">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/yHd5FLPU1BQ?si=MOEBwc6Bc0CnJ8uv" 
+        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; 
+        clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy=
+        "strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/scxp0mpEinI?si=PxNuLtV3XokeV1nm" 
+        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; 
+        clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy=
+        "strict-origin-when-cross-origin" allowfullscreen></iframe>
+     </div>
+
+     
+    <!-- Buttons linking to different sections of the website  -->
+    <a href="/register" class="btn btn-one">Get Started</a>
+    <a href="/search" class="btn">Browse Courses</a>
+    <a href="/list" class="btn">Video Section</a> 
+
+    <!-- Footer section with copyright information and additional navigation links -->
+     <footer>
+      <p>&copy; <%= new Date().getFullYear() %> Harper eLearning Platform. All rights reserved.</p>
+      <nav>
+        <a href="/about">About</a>
+        <a href="/register">Join</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </footer>
+
+  </body>
+</html> 
+
