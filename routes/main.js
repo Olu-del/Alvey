@@ -52,7 +52,21 @@ router.post('/register', function(req, res) {
     if (!username || !email || !password) {
         return res.send('All fields are required.');
     }
-       req.app.locals.connection.query('INSERT INTO users SET ?', { username, email, password_hash: hashedPassword }, (err, result) => {
+
+    // Hash the password before storing it
+    const hashedPassword = bcrypt.hashSync(password, 8);
+
+    // Check if the email or username already exists
+     req.app.locals.connection.query('SELECT * FROM users WHERE email = ? OR username = ?', [email, username], (err, results) => {
+         if (err) throw err;
+
+         if (results.length > 0) {
+             return res.send('This email or username is already registered. Please use a different one.');
+         }
+
+         // Insert the new user into the database
+    
+    req.app.locals.connection.query('INSERT INTO users SET ?', { username, email, password_hash: hashedPassword }, (err, result) => {
         if (err) {
             if (err.code === 'ER_DUP_ENTRY') {
                 return res.send('This email or username is already registered. Please use a different one.');
@@ -71,7 +85,7 @@ router.post('/register', function(req, res) {
     });
     
     });
-// });
+ });
 
 
 router.get('/login', function(req, res) {
