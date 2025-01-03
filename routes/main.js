@@ -143,7 +143,7 @@ router.get('/account', function(req, res) {
 });
 
 // Search route for videos
-router.get('/search', (req, res) => {
+router.get('/search', function(req, res)  {
     const searchText = req.query.search_text; // Get the search text from the query
     const sql = `
         SELECT videos.title AS video_title, CAST(videos_price.price AS DECIMAL(10, 2)) AS video_price
@@ -175,11 +175,11 @@ router.get('/signout-confirmation', function(req, res) {
             return res.send('Error signing out.');
         }
         // Redirect to the home page after sign-out
-       res.redirect('/login');
+       res.redirect('/');
    });
 });
 
-router.get('/videos', (req, res) => {
+router.get('/videos',function (req, res) {
     const query = 'SELECT * FROM videos';
 
     req.app.locals.connection.query(query, (err, results) => {
@@ -191,7 +191,7 @@ router.get('/videos', (req, res) => {
     });
 });
 
- router.get('/list', (req, res) => {
+ router.get('/list',function (req, res) {
      req.app.locals.connection.query('SELECT * FROM videos_price', (err, results) => {
          if (err) {
              console.error('Error fetching video prices:', err);
