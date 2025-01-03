@@ -52,36 +52,26 @@ router.post('/register', function(req, res) {
     if (!username || !email || !password) {
         return res.send('All fields are required.');
     }
-
-    // Hash the password before storing it
-    const hashedPassword = bcrypt.hashSync(password, 8);
-
-    // Check if the email or username already exists
-    req.app.locals.connection.query('SELECT * FROM users WHERE email = ? OR username = ?', [email, username], (err, results) => {
-        if (err) throw err;
-
-        if (results.length > 0) {
-            return res.send('This email or username is already registered. Please use a different one.');
-        }
-
-        // Insert the new user into the database
-        req.app.locals.connection.query('INSERT INTO users SET ?', { username, email, password_hash: hashedPassword }, (err, result) => {
-            if (err) {
-                if (err.code === 'ER_DUP_ENTRY') {
-                    return res.send('This email or username is already registered. Please use a different one.');
-                }
-                throw err;
+       req.app.locals.connection.query('INSERT INTO users SET ?', { username, email, password_hash: hashedPassword }, (err, result) => {
+        if (err) {
+            if (err.code === 'ER_DUP_ENTRY') {
+                return res.send('This email or username is already registered. Please use a different one.');
             }
-            // Set session variables
-            req.session.loggedin = true;
-            req.session.username = username;
-            req.session.email = email;
-
-            // Redirect to the account page after successful registration
-            res.redirect('/account');
-        });
+            console.error('Error inserting user data:', err); // Add this line
+            throw err;
+        }
+        console.log('User registered successfully:', result); // Add this line
+        // Set session variables
+        req.session.loggedin = true;
+        req.session.username = username;
+        req.session.email = email;
+    
+        // Redirect to the account page after successful registration
+        res.redirect('/account');
     });
-});
+    
+    });
+// });
 
 
 router.get('/login', function(req, res) {
@@ -171,7 +161,7 @@ router.get('/signout-confirmation', function(req, res) {
             return res.send('Error signing out.');
         }
         // Redirect to the home page after sign-out
-       res.redirect('/');
+       res.redirect('/login');
    });
 });
 
